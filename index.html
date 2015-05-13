@@ -1,108 +1,28 @@
 <html>
 	<head>
-		<style>
-			*{
-				border: 0px;
-				margin: 0px;
-				padding: 0px;
-				background: black;
-			}
-			.slider{
-				position: relative;
-				display: inline-block;
-				float: left;
-				
-				height: 150px;
-				width: 100%;
-				margin: 0px;
-				padding: 40px 0px;
-				
-				background: black;
-				
-				overflow: hidden;
-			}
-			
-			.wrapper{
-				position: relative;
-				display: block;
-				float: left;
-				
-				width: 2000px;
-				height: 150px;
-				left: 50%;
-				margin-left: -25%;
-			}
-			
-			.square{
-				position: relative;
-				display: inline-block;
-				float: left;
-				
-				width: 100px;
-				height: 100px;
-				margin: 5px;
-				background: transparent;
-				
-				transition: all 0.3s;
-				-webkit-box-reflect: below 0px 
-				
-					-webkit-gradient(linear, left top, left bottom, 
-						color-stop(0%, rgba(255,255,255, 0)), 
-						color-stop(50%,rgba(255,255,255,0)), 
-						color-stop(100%,rgba(255,255,255, 0.5)));
-			}
-			
-			.before{
-				transform: matrix(1, -0.2, 0, 1, 0, 0);
-				width: 80px;
-				margin: 0px -10px;
-			}
-			.before.level2{
-				transform: matrix(1, -0.4, 0, 1, 0, 0);
-				width: 75px;
-				opacity: 0.8;
-			}
-			.before.level3{
-				transform: matrix(1, -0.6, 0, 1, 0, 0);
-				width: 70px;
-				opacity: 0.6;
-			}
-			
-			.after{
-				transform: matrix(1, 0.2, 0, 1, 0, 0);
-				width: 80px;
-				margin: 0px -10px;
-			}
-			.after.level2{
-				transform: matrix(1, 0.4, 0, 1, 0, 0);
-				width: 75px;
-				opacity: 0.8;
-			}
-			.after.level3{
-				transform: matrix(1, 0.6, 0, 1, 0, 0);
-				width: 70px;
-				opacity: 0.6;
-			}
-			
-			.active{
-				width: 120px;
-				height: 120px;
-			}
-		</style>
+		<link href="styles/default.css" type="text/css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="slider">
 			<div class="wrapper">
-				<img id="1" src="images/1.png" style="z-index: 3" class="square before level3" />
-				<img id="2" src="images/2.png" style="z-index: 3" class="square before level3" />
-				<img id="3" src="images/3.png" style="z-index: 3" class="square before level3" />
-				<img id="4" src="images/4.png" style="z-index: 3" class="square before level3" />
-				<img id="5" src="images/5.png" style="z-index: 3" class="square before level3" />
-				<img id="6" src="images/6.png" style="z-index: 3" class="square before level3" />
-				<img id="7" src="images/7.png" style="z-index: 3" class="square before level3" />
-				<img id="8" src="images/8.png" style="z-index: 3" class="square before level3" />
-				<img id="9" src="images/9.png" style="z-index: 3" class="square before level3" />
+				<div id="1" style="z-index: 17" class="square active"><img src="images/1.jpg" /></div>
+				<div id="2" style="z-index: 16" class="square after level1"><img src="images/2.jpg" /></div>
+				<div id="3" style="z-index: 15" class="square after level2 "><img src="images/3.jpg" /></div>
+				<div id="4" style="z-index: 14" class="square after level2"><img src="images/4.jpg" /></div>
+				<div id="5" style="z-index: 13" class="square after level2"><img src="images/5.jpg" /></div>
+				<div id="6" style="z-index: 12" class="square after level2"><img src="images/6.jpg" /></div>
+				<div id="7" style="z-index: 11" class="square after level2"><img src="images/7.jpg" /></div>
+				<div id="8" style="z-index: 10" class="square after level2"><img src="images/8.jpg" /></div>
+				<div id="9" style="z-index: 9" class="square after level2"><img src="images/9.jpg" /></div>
+				<div id="10" style="z-index: 8" class="square after level2"><img src="images/10.jpg" /></div>
+				<div id="11" style="z-index: 7" class="square after level2"><img src="images/11.jpg" /></div>
+				<div id="12" style="z-index: 6" class="square after level2"><img src="images/12.jpg" /></div>
+				<div id="13" style="z-index: 5" class="square after level2"><img src="images/13.jpg" /></div>
+				<div id="14" style="z-index: 4" class="square after level2"><img src="images/14.jpg" /></div>
+				<div id="15" style="z-index: 3" class="square after level2"><img src="images/15.jpg" /></div>
+				<div id="16" style="z-index: 2" class="square after level2"><img src="images/16.jpg" /></div>
+				<div id="17" style="z-index: 1" class="square after level2"><img src="images/17.jpg" /></div>
 			</div>
 		</div>
 		<script>
@@ -112,13 +32,8 @@
 			
 			$(".square").each(function(){
 			
+				/*	place the event listeners	*/
 				$(this).on("mouseenter", function(){
-					
-					/*	Set everything like level3 */
-					$(".square").removeClass("active");
-					$(".square").removeClass("level1");
-					$(".square").removeClass("level2");
-					$(".square").addClass("level3");
 					
 					/* Determinate the active element */
 					var active = parseInt( $(this).attr("id") );
@@ -172,20 +87,32 @@
 						
 						/*	If it's a level1 element	*/
 						if(level1.before == thisId || level1.after == thisId){
-							$(temp).removeClass("level3");
 							$(temp).addClass("level1");
-							$(temp).css("z-index", (elements - 1));
+							$(temp).removeClass("level2");
 						}
 						
-						/*	If it's a level2 element	*/
-						else if(level2.before == thisId || level2.after == thisId){
-							$(temp).removeClass("level3");
-							$(temp).css("z-index", (elements - 2));
+						else{
+							$(temp).removeClass("level1");
 							$(temp).addClass("level2");
+						
 						}
 					}
 					
-					console.log("Enterign on: "+ $(this).attr("id"));
+					/*	Move the wrapper	*/
+					/*	Get the number of slides to the left	*/
+					var prevSlides = active - 1;
+					
+					/*	Get the middle of the screen	*/
+					var center = window.innerWidth/2;
+					
+					/*	Get the active slide width	*/
+					var current = parseInt( $("#"+active).width() ) / 2;
+					current = 230;
+					
+					/*	Get the starting place	*/
+					var left = center - current - (prevSlides * 115);
+					$(".wrapper").css("left", left);
+					$(".wrapper").css("margin-left", "0px");
 				});
 			});
 			

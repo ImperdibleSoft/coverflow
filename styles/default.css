@@ -1,0 +1,117 @@
+﻿*{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	background: black;
+}
+.slider{
+	position: relative;
+	display: inline-block;
+	float: left;
+	
+	width: 100%;
+	height: 500px;
+	margin: 0px;
+	margin-top: 40px;
+	padding: 0px;
+	
+	background: black;
+	
+	overflow: hidden;
+}
+.wrapper{
+	position: relative;
+	display: block;
+	float: left;
+	
+	width: 10000px;
+	height: 500px;
+	
+	left: 50%;
+	margin-left: -12.5%;
+	
+	transition: all 0.3s;
+	-webkit-perspective: 350px;
+	perspective: 350px;
+}
+
+.square{
+	position: relative;
+	display: inline-block;
+	float: left;
+	
+	width: auto;
+	max-width: 200px;
+	height: auto;
+	max-height: 200px;
+	margin: 5px;
+	
+	background: transparent;
+	
+	transition: all 0.3s;
+	
+	-webkit-perspective: 200px;
+	perspective: 200px;
+}
+.square img{
+	position: relative;
+	display: inline-block;
+	float: left;
+	
+	width: auto;
+	max-width: 200px;
+	height: auto;
+	max-height: 200px;
+	
+	background: transparent;
+	
+	transition: all 0.3s;
+	-webkit-box-reflect: below 0px 
+		-webkit-gradient(linear, left top, left bottom, 
+			color-stop(0%, rgba(255,255,255, 0)), 
+			color-stop(70%,rgba(255,255,255,0)), 
+			color-stop(100%,rgba(255,255,255, 0.3)));
+}
+
+.before{
+	margin-right: -60px;
+}
+.after{
+	margin-left: -60px;
+}
+.before img{
+	max-width: 190px;
+	max-height: 190px;
+	margin: 0px -10px;
+	margin-top: 40px;
+}
+.before.level1 img{
+	-webkit-transform: rotateY(20deg);
+	transform: rotateY(20deg);
+}
+.before.level2 img{
+	-webkit-transform: rotateY(30deg);
+	transform: rotateY(30deg);
+}
+
+.after img{
+	max-width: 190px;
+	max-height: 190px;
+	margin: 0px -10px;
+	margin-top: 40px;
+
+}
+.after.level1 img{
+	-webkit-transform: rotateY(-20deg);
+	transform: rotateY(-20deg);
+}
+.after.level2 img{
+	-webkit-transform: rotateY(-30deg);
+	transform: rotateY(-30deg);
+}
+
+.active, .active img{
+	max-width: 300px;
+	max-height: 300px;
+	margin-top;
+}
