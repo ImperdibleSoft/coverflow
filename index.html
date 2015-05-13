@@ -1,0 +1,293 @@
+<html>
+	<head>
+		<style>
+			*{
+				border: 0px;
+				margin: 0px;
+				padding: 0px;
+				background: black;
+			}
+			.slider{
+				position: relative;
+				display: inline-block;
+				float: left;
+				
+				height: 150px;
+				width: 100%;
+				margin: 0px;
+				padding: 40px 0px;
+				
+				background: black;
+				
+				overflow: hidden;
+			}
+			
+			.wrapper{
+				position: relative;
+				display: block;
+				float: left;
+				
+				width: 2000px;
+				height: 150px;
+				left: 50%;
+				margin-left: -25%;
+			}
+			
+			.square{
+				position: relative;
+				display: inline-block;
+				float: left;
+				
+				width: 100px;
+				height: 100px;
+				margin: 5px;
+				background: transparent;
+				
+				transition: all 0.3s;
+				-webkit-box-reflect: below 0px 
+				
+					-webkit-gradient(linear, left top, left bottom, 
+						color-stop(0%, rgba(255,255,255, 0)), 
+						color-stop(50%,rgba(255,255,255,0)), 
+						color-stop(100%,rgba(255,255,255, 0.5)));
+			}
+			
+			.before{
+				transform: matrix(1, -0.2, 0, 1, 0, 0);
+				width: 80px;
+				margin: 0px -10px;
+			}
+			.before.level2{
+				transform: matrix(1, -0.4, 0, 1, 0, 0);
+				width: 75px;
+				opacity: 0.8;
+			}
+			.before.level3{
+				transform: matrix(1, -0.6, 0, 1, 0, 0);
+				width: 70px;
+				opacity: 0.6;
+			}
+			
+			.after{
+				transform: matrix(1, 0.2, 0, 1, 0, 0);
+				width: 80px;
+				margin: 0px -10px;
+			}
+			.after.level2{
+				transform: matrix(1, 0.4, 0, 1, 0, 0);
+				width: 75px;
+				opacity: 0.8;
+			}
+			.after.level3{
+				transform: matrix(1, 0.6, 0, 1, 0, 0);
+				width: 70px;
+				opacity: 0.6;
+			}
+			
+			.active{
+				width: 120px;
+				height: 120px;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="slider">
+			<div class="wrapper">
+				<img id="1" src="images/1.png" style="z-index: 3" class="square before level3" />
+				<img id="2" src="images/2.png" style="z-index: 3" class="square before level3" />
+				<img id="3" src="images/3.png" style="z-index: 3" class="square before level3" />
+				<img id="4" src="images/4.png" style="z-index: 3" class="square before level3" />
+				<img id="5" src="images/5.png" style="z-index: 3" class="square before level3" />
+				<img id="6" src="images/6.png" style="z-index: 3" class="square before level3" />
+				<img id="7" src="images/7.png" style="z-index: 3" class="square before level3" />
+				<img id="8" src="images/8.png" style="z-index: 3" class="square before level3" />
+				<img id="9" src="images/9.png" style="z-index: 3" class="square before level3" />
+			</div>
+		</div>
+		<script>
+		// -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(250, 250, 250, 0.3)));
+		$(document).ready(function(){
+			var elements = $(".square").length;
+			
+			$(".square").each(function(){
+			
+				$(this).on("mouseenter", function(){
+					
+					/*	Set everything like level3 */
+					$(".square").removeClass("active");
+					$(".square").removeClass("level1");
+					$(".square").removeClass("level2");
+					$(".square").addClass("level3");
+					
+					/* Determinate the active element */
+					var active = parseInt( $(this).attr("id") );
+					
+					/* Determinate the level1 elements */
+					var level1 = {
+						"before": active - 1,
+						"after": active + 1
+					}
+					
+					/* Determinate the level2 elements */
+					var level2 = {
+						"before": active - 2,
+						"after": active + 2
+					}
+					
+					/*	Go throught all the elements	*/
+					for(var x = 0; x < elements; x++){
+						var temp = $(".square")[x];
+						var thisId = parseInt( $(temp).attr("id") );
+						
+						/*	Set the z-index	*/
+						var distance = active - thisId;
+						if(distance < 0){
+							distance = distance * (-1);
+						}
+						$(temp).css("z-index", ( elements - distance ));
+						
+						/*	If it's the active element	*/
+						if(active == thisId){
+							$(temp).removeClass("before");
+							$(temp).addClass("active");
+							$(temp).removeClass("after");
+							$(temp).css("z-index", elements);
+						}
+						
+						/*	If its a before element	*/
+						else if(active > thisId){
+							$(temp).addClass("before");
+							$(temp).removeClass("active");
+							$(temp).removeClass("after");
+						}
+						
+						/*	If its an after element	*/
+						else if(active < thisId){
+							$(temp).removeClass("before");
+							$(temp).removeClass("active");
+							$(temp).addClass("after");
+						}
+						
+						
+						/*	If it's a level1 element	*/
+						if(level1.before == thisId || level1.after == thisId){
+							$(temp).removeClass("level3");
+							$(temp).addClass("level1");
+							$(temp).css("z-index", (elements - 1));
+						}
+						
+						/*	If it's a level2 element	*/
+						else if(level2.before == thisId || level2.after == thisId){
+							$(temp).removeClass("level3");
+							$(temp).css("z-index", (elements - 2));
+							$(temp).addClass("level2");
+						}
+					}
+					
+					console.log("Enterign on: "+ $(this).attr("id"));
+				});
+			});
+			
+			$(document).on("keyup", function(e){
+				
+				if(e.keyCode == 37 || e.keyCode == 39){
+					var elements = $(".square").length;
+					var active = parseInt( $(".square.active").attr("id") );
+					
+					/* Press left <- */
+					if(e.keyCode == 37){
+						console.log("Go to the left");
+						if(active > 1){
+							active--;
+						}
+						else{
+							active = elements;
+						}
+					}
+					
+					/* Press right -> */
+					else if(e.keyCode == 39){
+						console.log("Go to the right");
+						if(active < elements){
+							active++;
+						}
+						else{
+							active = 1;
+						}
+					}
+					
+					/* Determinate the level1 elements */
+					var level1 = {
+						"before": active - 1,
+						"after": active + 1
+					}
+					
+					/* Determinate the level2 elements */
+					var level2 = {
+						"before": active - 2,
+						"after": active + 2
+					}
+					
+					/*	Go throught all the elements	*/
+					for(var x = 0; x < elements; x++){
+						var temp = $(".square")[x];
+						var thisId = parseInt( $(temp).attr("id") );
+						
+						/*	Set the z-index	*/
+						var distance = active - thisId;
+						if(distance < 0){
+							distance = distance * (-1);
+						}
+						$(temp).css("z-index", ( elements - distance ));
+						
+						/*	If it's the active element	*/
+						if(active == thisId){
+							$(temp).removeClass("before");
+							$(temp).addClass("active");
+							$(temp).removeClass("after");
+							$(temp).css("z-index", elements);
+						}
+						
+						/*	If its a before element	*/
+						else if(active > thisId){
+							$(temp).addClass("before");
+							$(temp).removeClass("active");
+							$(temp).removeClass("after");
+						}
+						
+						/*	If its an after element	*/
+						else if(active < thisId){
+							$(temp).removeClass("before");
+							$(temp).removeClass("active");
+							$(temp).addClass("after");
+						}
+						
+						
+						/*	If it's a level1 element	*/
+						if(level1.before == thisId || level1.after == thisId){
+							$(temp).removeClass("level3");
+							$(temp).addClass("level1");
+							$(temp).css("z-index", (elements - 1));
+						}
+						
+						/*	If it's a level2 element	*/
+						else if(level2.before == thisId || level2.after == thisId){
+							$(temp).removeClass("level3");
+							$(temp).css("z-index", (elements - 2));
+							$(temp).addClass("level2");
+						}
+					}
+					
+					
+				}
+				
+			});
+		
+			$(document).on("mousewheel", function(e){
+				console.log(e);
+			})
+		});
+		</script>
+	</body>
+</html>
