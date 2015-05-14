@@ -62,6 +62,12 @@
 		slide( active );
 	});
 	
+	$(".cf-square").on("click", function(e){
+		var active = $(this).attr("id");
+		
+		slide( active );
+	})
+	
 	function slide( active ){
 		
 		/*	Get the number of slides to the left	*/
