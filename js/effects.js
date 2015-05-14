@@ -1,26 +1,14 @@
 ﻿$(document).ready(function(){
-	var elements = $(".square").length;
-	
-	$(".square").each(function(){
-	
-		/*	place the event listeners	*/
-		$(this).on("mouseenter", function(){
-			
-			/* Determinate the active element */
-			var active = parseInt( $(this).attr("id") );
-			
-			animate( active );
-		});
-	});
+	var elements = $(".cf-square").length;
 	
 	$(document).on("keyup", function(e){
 		
-		if(e.keyCode == 37 || e.keyCode == 39){
-			var elements = $(".square").length;
-			var active = parseInt( $(".square.active").attr("id") );
+		if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40){
+			var elements = $(".cf-square").length;
+			var active = parseInt( $(".cf-square.cf-active").attr("id") );
 			
-			/* Press left <- */
-			if(e.keyCode == 37){
+			/* Press left or up */
+			if(e.keyCode == 37 || e.keyCode == 38){
 				if(active > 1){
 					active--;
 				}
@@ -29,8 +17,8 @@
 				}
 			}
 			
-			/* Press right -> */
-			else if(e.keyCode == 39){
+			/* Press right or down */
+			else if(e.keyCode == 39 || e.keyCode == 40){
 				if(active < elements){
 					active++;
 				}
@@ -39,32 +27,59 @@
 				}
 			}
 			
-			animate( active );
+			slide( active );
 		}
 	});
 
-	$(document).on("mousewheel", function(e){
-		console.log(e);
-	})
+	$(".cf-slider").on("mousewheel", function (e) {
 
-	function animate( active ){
+		// cross-browser wheel delta
+		var e = window.event || e;
+		e.preventDefault();
+		var orientation = e.wheelDelta || -e.detail;
+		
+		if(orientation > 0){
+			
+		}
+	
+		var elements = $(".cf-square").length;
+		var active = parseInt( $(".cf-square.cf-active").attr("id") );
+		
+		/* Scroll up */
+		if(orientation > 0){
+			if(active > 1){
+				active--;
+			}
+		}
+		
+		/* Scroll down */
+		else if(orientation < 0){
+			if(active < elements){
+				active++;
+			}
+		}
+		
+		slide( active );
+	});
+	
+	function slide( active ){
 		
 		/*	Get the number of slides to the left	*/
 		var prevSlides = active - 1;
 		
 		/*	Get the middle of the screen	*/
-		var center = window.innerWidth/2;
+		var center = parseInt( $(".cf-slider").width() )/2;
 		
 		/*	Get the active slide width	*/
 		var current = parseInt( $("#"+active).width() ) / 2;
-		current = 230;
+		current = 150;
 		
 		/*	Get the starting place	*/
 		var left = center - current - (prevSlides * 115);
 		
 		/*	Move the wrapper	*/
-		$(".wrapper").css("left", left);
-		$(".wrapper").css("margin-left", "0px");
+		$(".cf-wrapper").css("left", left);
+		$(".cf-wrapper").css("margin-left", "0px");
 	
 		/* Determinate the level1 elements */
 		var level1 = {
@@ -80,7 +95,7 @@
 		
 		/*	Go throught all the elements	*/
 		for(var x = 0; x < elements; x++){
-			var temp = $(".square")[x];
+			var temp = $(".cf-square")[x];
 			var thisId = parseInt( $(temp).attr("id") );
 			
 			/*	Set the z-index	*/
@@ -92,37 +107,34 @@
 			
 			/*	If it's the active element	*/
 			if(active == thisId){
-				$(temp).removeClass("before");
-				$(temp).addClass("active");
-				$(temp).removeClass("after");
-				$(temp).css("z-index", elements);
+				$(temp).removeClass("cf-before");
+				$(temp).addClass("cf-active");
+				$(temp).removeClass("cf-after");
 			}
 			
 			/*	If its a before element	*/
 			else if(active > thisId){
-				$(temp).addClass("before");
-				$(temp).removeClass("active");
-				$(temp).removeClass("after");
+				$(temp).addClass("cf-before");
+				$(temp).removeClass("cf-active");
+				$(temp).removeClass("cf-after");
 			}
 			
 			/*	If its an after element	*/
 			else if(active < thisId){
-				$(temp).removeClass("before");
-				$(temp).removeClass("active");
-				$(temp).addClass("after");
+				$(temp).removeClass("cf-before");
+				$(temp).removeClass("cf-active");
+				$(temp).addClass("cf-after");
 			}
-			
 			
 			/*	If it's a level1 element	*/
 			if(level1.before == thisId || level1.after == thisId){
-				$(temp).addClass("level1");
-				$(temp).removeClass("level2");
+				$(temp).addClass("cf-level1");
+				$(temp).removeClass("cf-level2");
 			}
 			
 			else{
-				$(temp).removeClass("level1");
-				$(temp).addClass("level2");
-			
+				$(temp).removeClass("cf-level1");
+				$(temp).addClass("cf-level2");
 			}
 		}
 	}

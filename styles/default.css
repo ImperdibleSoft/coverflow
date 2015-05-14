@@ -2,15 +2,17 @@
 	border: 0px;
 	margin: 0px;
 	padding: 0px;
+}
+body{
 	background: black;
 }
-.slider{
+.cf-slider{
 	position: relative;
 	display: inline-block;
 	float: left;
 	
 	width: 100%;
-	height: 500px;
+	height: 390px;
 	margin: 0px;
 	margin-top: 40px;
 	padding: 0px;
@@ -19,13 +21,13 @@
 	
 	overflow: hidden;
 }
-.wrapper{
+.cf-wrapper{
 	position: relative;
 	display: block;
 	float: left;
 	
 	width: 10000px;
-	height: 500px;
+	height: 390px;
 	
 	left: 50%;
 	margin-left: -12.5%;
@@ -35,7 +37,7 @@
 	perspective: 350px;
 }
 
-.square{
+.cf-square{
 	position: relative;
 	display: inline-block;
 	float: left;
@@ -53,7 +55,7 @@
 	-webkit-perspective: 200px;
 	perspective: 200px;
 }
-.square img{
+.cf-square img{
 	position: relative;
 	display: inline-block;
 	float: left;
@@ -73,44 +75,44 @@
 			color-stop(100%,rgba(255,255,255, 0.3)));
 }
 
-.before{
+.cf-before{
 	margin-right: -60px;
 }
-.after{
-	margin-left: -60px;
-}
-.before img{
+.cf-before img{
 	max-width: 190px;
 	max-height: 190px;
 	margin: 0px -10px;
 	margin-top: 40px;
 }
-.before.level1 img{
+.cf-before.cf-level1 img{
 	-webkit-transform: rotateY(20deg);
 	transform: rotateY(20deg);
 }
-.before.level2 img{
+.cf-before.cf-level2 img{
 	-webkit-transform: rotateY(30deg);
 	transform: rotateY(30deg);
 }
 
-.after img{
+.cf-after{
+	margin-left: -60px;
+}
+.cf-after img{
 	max-width: 190px;
 	max-height: 190px;
 	margin: 0px -10px;
 	margin-top: 40px;
 
 }
-.after.level1 img{
+.cf-after.cf-level1 img{
 	-webkit-transform: rotateY(-20deg);
 	transform: rotateY(-20deg);
 }
-.after.level2 img{
+.cf-after.cf-level2 img{
 	-webkit-transform: rotateY(-30deg);
 	transform: rotateY(-30deg);
 }
 
-.active, .active img{
+.cf-active, .cf-active img{
 	max-width: 300px;
 	max-height: 300px;
 	margin-top;
