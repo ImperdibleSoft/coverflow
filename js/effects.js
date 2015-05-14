@@ -1,5 +1,7 @@
 ﻿$(document).ready(function(){
 	var elements = $(".cf-square").length;
+	var wheeljump = 2;
+	var counter = 0;
 	
 	$(document).on("keyup", function(e){
 		
@@ -46,24 +48,29 @@
 		var active = parseInt( $(".cf-square.cf-active").attr("id") );
 		
 		/* Scroll up */
-		if(orientation > 0){
-			if(active > 1){
+		if(orientation > 0 && active > 1){
+			counter--;
+			if((counter * (-1)) >= wheeljump){
+				counter = 0;
 				active--;
+				slide( active );
 			}
 		}
 		
 		/* Scroll down */
-		else if(orientation < 0){
-			if(active < elements){
+		else if(orientation < 0 && active < elements){
+			counter++
+			if(counter >= wheeljump){
+				counter = 0;
 				active++;
+				slide( active );
 			}
 		}
 		
-		slide( active );
 	});
 	
 	$(".cf-square").on("click", function(e){
-		var active = $(this).attr("id");
+		var active = parseInt( $(this).attr("id") );
 		
 		slide( active );
 	})
@@ -78,10 +85,18 @@
 		
 		/*	Get the active slide width	*/
 		var current = parseInt( $("#"+active).width() ) / 2;
-		current = 150;
+		//current = 150;
 		
 		/*	Get the starting place	*/
-		var left = center - current - (prevSlides * 115);
+		var temp = parseInt( $(".cf-active").attr("id") );
+		var normal = temp >= elements ? parseInt( $($(".cf-before")[0]).width() ) : parseInt( $($(".cf-after")[0]).width() );
+		var margin = temp >= elements ? parseInt( $($(".cf-before")[0]).css("margin-right") ) : parseInt( $($(".cf-after")[0]).css("margin-left") );
+		margin = margin * 0.85;
+		if(margin < 0){
+			margin = margin * (-1);
+		}
+		var diff = normal - margin;
+		var left = center - current - (prevSlides * diff);
 		
 		/*	Move the wrapper	*/
 		$(".cf-wrapper").css("left", left);
@@ -89,14 +104,8 @@
 	
 		/* Determinate the level1 elements */
 		var level1 = {
-			"before": active - 1,
-			"after": active + 1
-		}
-		
-		/* Determinate the level2 elements */
-		var level2 = {
-			"before": active - 2,
-			"after": active + 2
+			"before": (active - 1),
+			"after": (active + 1)
 		}
 		
 		/*	Go throught all the elements	*/
@@ -116,6 +125,9 @@
 				$(temp).removeClass("cf-before");
 				$(temp).addClass("cf-active");
 				$(temp).removeClass("cf-after");
+				
+				$(temp).removeClass("cf-level1");
+				$(temp).removeClass("cf-level2");
 			}
 			
 			/*	If its a before element	*/
@@ -138,10 +150,13 @@
 				$(temp).removeClass("cf-level2");
 			}
 			
-			else{
+			else if(active != thisId){
 				$(temp).removeClass("cf-level1");
 				$(temp).addClass("cf-level2");
 			}
 		}
 	}
+	
+	var active = parseInt( $(".cf-active").attr("id") );
+	slide( active );
 });
