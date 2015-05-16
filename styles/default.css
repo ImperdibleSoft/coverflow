@@ -1,0 +1,153 @@
+﻿/*	Configure your Cover Flow slider		*/
+/*	Please, follow the instructions and keep the aspect ratio	*/
+
+/*	In this case, 200px is the basic size	*/
+/*	Place your basic size	*/
+.cf-square, .cf-square img{
+	max-width: 200px;
+	max-height: 200px;
+}
+.cf-square{
+	width: 200px;
+	height: 200px;
+	-webkit-perspective: 200px;
+	perspective: 200px;
+}
+
+/*	Now place your basic size x2	*/
+.cf-slider, .cf-wrapper{
+	height: 400px;
+}
+
+/*	Now place your basc size x1.5	*/
+.cf-square.cf-active, .cf-square.cf-active div img{
+	max-width: 300px;
+	max-height: 300px;
+}
+.cf-square.cf-active{
+	width: 300px;
+	height: 300px;
+}
+
+/*	Now place your basic size x0.9	*/
+.cf-before img, .cf-after img{
+	max-width: 180px;
+	max-height: 180px;
+}
+
+/*	Now place your basic size x0.5	*/
+.cf-before{
+	margin-right: -100px;
+}
+.cf-after{
+	margin-left: -100px;
+}
+
+/*	Now place your	basic size x0.25	*/
+.cf-square.cf-before, .cf-square.cf-after{
+	margin-top: 50px;
+}
+
+
+
+/*	Do NOT touch from here	*/
+*{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+.cf-slider{
+	position: relative;
+	display: inline-block;
+	float: left;
+	
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	
+	background: black;
+	
+	overflow: hidden;
+}
+.cf-wrapper{
+	position: relative;
+	display: block;
+	float: left;
+	
+	width: 10000px;
+	padding: 20px;
+	
+	left: 50%;
+	margin-left: -12.5%;
+	
+	transition: all 0.3s;
+	-webkit-perspective: 350px;
+	perspective: 350px;
+}
+
+.cf-square{
+	position: relative;
+	display: table;
+	float: left;
+	
+	margin-top: 5px;
+	margin-bottom: 5px;
+	
+	background: transparent;
+	
+	transition: all 0.3s;
+}
+.cf-square div{
+	display: table-cell;
+
+	text-align: center;
+	
+	vertical-align: middle;
+}
+.cf-square div img{
+	position: relative;
+	display: inline-block;
+	float: none;
+	
+	margin: 0px auto;
+	
+	background: transparent;
+	
+	transition: all 0.3s;
+	-webkit-box-reflect: below 0px 
+		-webkit-gradient(linear, left top, left bottom, 
+			color-stop(0%, rgba(255,255,255, 0)), 
+			color-stop(70%,rgba(255,255,255,0)), 
+			color-stop(100%,rgba(255,255,255, 0.3)));
+}
+
+.cf-before img{
+	margin-left: -10px;
+	margin-right: -10px;
+}
+.cf-before.cf-level1 img{
+	-webkit-transform: rotateY(20deg);
+	transform: rotateY(20deg);
+}
+.cf-before.cf-level2 img{
+	-webkit-transform: rotateY(30deg);
+	transform: rotateY(30deg);
+}
+
+.cf-after img{
+	margin-left: -10px;
+	margin-right: -10px;
+
+}
+.cf-after.cf-level1 img{
+	-webkit-transform: rotateY(-20deg);
+	transform: rotateY(-20deg);
+}
+.cf-after.cf-level2 img{
+	-webkit-transform: rotateY(-30deg);
+	transform: rotateY(-30deg);
+}
+
+.cf-square.cf-active, .cf-square.cf-active img{
+	margin-top: 0px;
+}
